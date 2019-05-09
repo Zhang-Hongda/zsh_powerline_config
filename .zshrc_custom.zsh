@@ -32,6 +32,8 @@ theme_path="/home/eric/.oh-my-zsh/custom/themes"
 zsh_git_path="/home/eric/.zsh/zsh_powerline_config"
 workspace_ros_path="/home/eric/work_space/workspace_ros"
 current_ws="current_ws"
+timeonstart=$(date +%y.%m.%d-%H:%M:%S)
+backuptime=$(echo $timeonstart | sed 's|^|#### Last backup time: |')
 split='-------------------------------------------------------'
 
 
@@ -40,10 +42,6 @@ split='-------------------------------------------------------'
 alias zshconfig="gedit ~/.zshrc"
 alias themeconfig="gedit $theme_path/powerline-custom.zsh-theme"
 alias zshcustom="gedit ~/.zshrc_custom.zsh"
-
-alias zshbackup="cp ~/.zshrc ~/.zshrc.backup"
-alias themebackup="cp $theme_path/powerline-custom.zsh-theme $theme_path/powerline-custom.zsh-theme.backup"
-alias custombackup="cp ~/.zshrc_custom.zsh ~/.zshrc_custom.zsh.backup"
 
 #### others
 alias lf="ls | sed "s:^:`pwd`/:""
@@ -70,6 +68,25 @@ alias nodegraph="rosrun rqt_graph rqt_graph"
 alias tftree="rosrun rqt_tf_tree rqt_tf_tree"
 
 #################################functions##############################
+#### zsh files backup 
+function zshbackup()
+{
+    cp ~/.zshrc ~/.zshrc.backup && 
+    echo $backuptime >> ~/.zshrc.backup
+}
+
+function themebackup()
+{
+    cp $theme_path/powerline-custom.zsh-theme $theme_path/powerline-custom.zsh-theme.backup &&
+    echo $backuptime >> $theme_path/powerline-custom.zsh-theme.backup
+}
+
+function custombackup()
+{
+    cp ~/.zshrc_custom.zsh ~/.zshrc_custom.zsh.backup
+    echo $backuptime >> ~/.zshrc_custom.zsh.backup
+}
+
 #### make a folder and cd folder
 function mdcd(){mkdir $@ && cd $@}
 
