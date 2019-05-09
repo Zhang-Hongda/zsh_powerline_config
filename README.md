@@ -7,7 +7,7 @@ zsh_powerline_config
 |E-mail|2210010444@qq.com|
 |Institute|Harbin Institute of Technology|
 ****
-####Description
+#### Description
 A backup of configuration file of __zsh__ and __zsh theme__ and some useful links.
 #### Environment
 * Ubuntu 16.04 LTS 
