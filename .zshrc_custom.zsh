@@ -172,7 +172,7 @@ function linfo()
 {
     for i in $@
     do
-    echo $split; listfile $i; listnode $i; listarg $i;
+    echo $split; llfile $i; llnode $i; llarg $i;
     done
 }
 
