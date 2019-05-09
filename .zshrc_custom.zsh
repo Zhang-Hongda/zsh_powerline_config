@@ -192,6 +192,19 @@ function zshtogit()
     echo "file backup to $zsh_git_path"
 }
 
+#### simpliy git push procedures
+function gitpush()
+{
+    git add . && git commit -a -m "$1" && git push -u origin master 
+}
+
+#### modify .git folder config file
+function gitremoteconfig()
+{
+    sed -i 's|url = https://github.com/Zhang-Hongda|url = git@github.com:Zhang-Hongda|' ./.git/config 
+}
+
+
 ############################run in start#############################
 #### file backup
 zshbackup
