@@ -28,8 +28,8 @@ setopt nonomatch
 export EDITOR='gedit'
 
 ############################variables################################
-theme_path=~/.oh-my-zsh/custom/themes
-zsh_git_path=~/.zsh/zsh_powerline_config
+theme_path="/home/eric/.oh-my-zsh/custom/themes"
+zsh_git_path="/home/eric/.zsh/zsh_powerline_config"
 workspace_ros_path="/home/eric/work_space/workspace_ros"
 current_ws="current_ws"
 split='-------------------------------------------------------'
@@ -65,7 +65,6 @@ alias rl="roslaunch"
 alias rpf="rospack find"
 alias rtl="rostopic list"
 alias rte="rostopic echo"
-alias rcd="roscd"
 
 alias nodegraph="rosrun rqt_graph rqt_graph"
 alias tftree="rosrun rqt_tf_tree rqt_tf_tree"
@@ -73,6 +72,13 @@ alias tftree="rosrun rqt_tf_tree rqt_tf_tree"
 #################################functions##############################
 #### make a folder and cd folder
 function mdcd(){mkdir $@ && cd $@}
+
+#### roscd and print dir
+function rcd()
+{
+    roscd $@ && echo -n '=>' && ${PWD##*/}
+}
+
 
 #### get ros source command form a path. eg: getsourcecmd or getsourcecmd wsname
 function getsourcecmd()
@@ -195,13 +201,18 @@ function zshtogit()
 #### simpliy git push procedures
 function gitpush()
 {
-    git add . && git commit -a -m "$1" && git push -u origin master 
+    if [ -z $@ ]; then
+        git add . && git commit -a -m "modify file" && git push -u origin master
+    else
+        git add . && git commit -a -m $@ && git push -u origin master
+    fi
+    
 }
 
-#### modify .git folder config file
+#### modify git folder config file
 function gitremoteconfig()
 {
-    sed -i 's|url = https://github.com/Zhang-Hongda|url = git@github.com:Zhang-Hongda|' ./.git/config 
+    sed -i 's|url = https://github.com/Zhang-Hongda|url = git@github.com:Zhang-Hongda|' ./.git/config
 }
 
 
@@ -212,21 +223,5 @@ themebackup
 custombackup
 #### activate ros workspaces
 rosautosource
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
