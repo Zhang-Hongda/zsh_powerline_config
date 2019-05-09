@@ -92,7 +92,7 @@ ZSH_THEME="powerline-custom"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 ######################activate custom functions#########################
-source ~/.zshrc_custom_functions.zsh
+source ~/.zshrc_custom.zsh
 
 
 

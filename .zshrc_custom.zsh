@@ -29,6 +29,7 @@ export EDITOR='gedit'
 
 ############################variables################################
 theme_path=~/.oh-my-zsh/custom/themes
+zsh_git_path=~/.zsh/zsh_powerline_config
 workspace_ros_path="/home/eric/work_space/workspace_ros"
 current_ws="current_ws"
 split='-------------------------------------------------------'
@@ -38,11 +39,11 @@ split='-------------------------------------------------------'
 #### zsh config and backup
 alias zshconfig="gedit ~/.zshrc"
 alias themeconfig="gedit $theme_path/powerline-custom.zsh-theme"
-alias funconfig="gedit ~/.zshrc_custom_functions.zsh"
+alias zshcustom="gedit ~/.zshrc_custom.zsh"
 
 alias zshbackup="cp ~/.zshrc ~/.zshrc.backup"
 alias themebackup="cp $theme_path/powerline-custom.zsh-theme $theme_path/powerline-custom.zsh-theme.backup"
-alias funbackup="cp ~/.zshrc_custom_functions.zsh ~/.zshrc_custom_functions.zsh.backup"
+alias custombackup="cp ~/.zshrc_custom.zsh ~/.zshrc_custom.zsh.backup"
 
 #### others
 alias lf="ls | sed "s:^:`pwd`/:""
@@ -182,11 +183,20 @@ function rosautosource()
     eval "$(cd ~/work_space/workspace_ros && ls | sed "s:^:`pwd`/:" |sed 's/$/\/devel\/setup.zsh --extend/g' |sed 's/^/source '/)"
 }
 
+#### save zshrc and theme files to git
+function zshtogit()
+{
+    cp ~/.zshrc $zsh_git_path/.zshrc &&
+    cp $theme_path/powerline-custom.zsh-theme $zsh_git_path/powerline-custom.zsh-theme &&
+    cp ~/.zshrc_custom.zsh $zsh_git_path/.zshrc_custom.zsh &&
+    echo "file backup to $zsh_git_path"
+}
+
 ############################run in start#############################
 #### file backup
 zshbackup
 themebackup
-funbackup
+custombackup
 #### activate ros workspaces
 rosautosource
 
