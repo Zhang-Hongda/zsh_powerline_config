@@ -233,7 +233,7 @@ function gitremoteconfig()
 }
 
 
-############################run in start#############################
+############################run at start#############################
 #### file backup
 zshbackup
 themebackup
