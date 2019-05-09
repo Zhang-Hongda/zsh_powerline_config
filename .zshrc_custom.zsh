@@ -36,7 +36,6 @@ timeonstart=$(date +%y.%m.%d-%H:%M:%S)
 backuptime=$(echo $timeonstart | sed 's|^|#### Last backup time: |')
 split='-------------------------------------------------------'
 
-
 ##############################aliases################################
 #### zsh config and backup
 alias zshconfig="gedit ~/.zshrc"
@@ -44,7 +43,6 @@ alias themeconfig="gedit $theme_path/powerline-custom.zsh-theme"
 alias zshcustom="gedit ~/.zshrc_custom.zsh"
 
 #### others
-alias lf="ls | sed "s:^:`pwd`/:""
 alias dt="cd ~/Desktop"
 
 #### catkin
@@ -54,6 +52,8 @@ alias ckmr="catkin_make -DCMAKE_BUILD_TYPE=Release"
 alias reckm="rm -r ./devel ./build && command catkin_make"
 alias reckmd="rm -r ./devel ./build && command catkin_make -DCMAKE_BUILD_TYPE=Debug"
 alias reckmr="rm -r ./devel ./build && command catkin_make -DCMAKE_BUILD_TYPE=Release"
+alias ckmwp="catkin_make -DCATKIN_WHITELIST_PACKAGES="
+
 
 #### ros
 alias rp="rospack"
@@ -68,6 +68,34 @@ alias nodegraph="rosrun rqt_graph rqt_graph"
 alias tftree="rosrun rqt_tf_tree rqt_tf_tree"
 
 #################################functions##############################
+
+###################### commonly used########################
+#### list full path
+function lfp()
+{
+    ls ./$@ | sed "s:^:`pwd`/:"
+}
+
+#### list folder in path
+function lf()
+{
+    if [ -z $@ ]; then
+        ls -d */
+    else
+        ls -F $@ |grep ".*/$"|tr -d '/'
+    fi
+}
+
+#### make a folder and cd folder
+function mdcd(){mkdir $@ && cd $@}
+
+#### roscd and print dir
+function rcd()
+{
+    roscd $@ && echo -n '=>' && ${PWD##*/}
+}
+
+######################zsh concerned########################
 #### zsh files backup 
 function zshbackup()
 {
@@ -87,16 +115,7 @@ function custombackup()
     echo $backuptime >> ~/.zshrc_custom.zsh.backup
 }
 
-#### make a folder and cd folder
-function mdcd(){mkdir $@ && cd $@}
-
-#### roscd and print dir
-function rcd()
-{
-    roscd $@ && echo -n '=>' && ${PWD##*/}
-}
-
-
+######################ROS functions########################
 #### get ros source command form a path. eg: getsourcecmd or getsourcecmd wsname
 function getsourcecmd()
 {
@@ -118,7 +137,7 @@ function pkgdep()
 }
 
 #### cd ros packages' workspace. eg: cdpkgws or cdpkgws packagename
-function cdpkgws()
+function pkgws()
 {
     if [ -z $@ ]; then
         cd ../.. && echo -n '=>' && pwd
@@ -128,12 +147,12 @@ function cdpkgws()
 }
 
 #### list ros packages' name in a workspace. eg: listwspkg or listwspkg packagename
-function listwspkg()
+function wspkg()
 {
     if [ -z $@ ]; then
-        ls ./src
+        lf ./src
     else
-        ls $workspace_ros_path/$@/src
+        lf $workspace_ros_path/$@/src
     fi
 }
 
@@ -194,7 +213,7 @@ function linfo()
 }
 
 #### list ros workspaces within a customed folder.
-function listws(){ls $workspace_ros_path}
+function listws(){lf $workspace_ros_path}
 
 #### print environmental variables line by line.
 function listenv(){echo $@ | tr ":" "\n"}
@@ -203,9 +222,10 @@ function listenv(){echo $@ | tr ":" "\n"}
 function rosautosource()
 {
     source /opt/ros/kinetic/setup.zsh --extend
-    eval "$(cd ~/work_space/workspace_ros && ls | sed "s:^:`pwd`/:" |sed 's/$/\/devel\/setup.zsh --extend/g' |sed 's/^/source '/)"
+    eval "$(cd $workspace_ros_path && lf | sed "s:^:`pwd`/:" |sed 's/$/\/devel\/setup.zsh --extend/g' |sed 's/^/source '/)"
 }
 
+######################git functions########################
 #### save zshrc and theme files to git
 function zshtogit()
 {
