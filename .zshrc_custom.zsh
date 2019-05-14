@@ -52,7 +52,6 @@ alias ckmr="catkin_make -DCMAKE_BUILD_TYPE=Release"
 alias reckm="rm -r ./devel ./build && command catkin_make"
 alias reckmd="rm -r ./devel ./build && command catkin_make -DCMAKE_BUILD_TYPE=Debug"
 alias reckmr="rm -r ./devel ./build && command catkin_make -DCMAKE_BUILD_TYPE=Release"
-alias ckmwp="catkin_make -DCATKIN_WHITELIST_PACKAGES="
 
 
 #### ros
@@ -66,6 +65,7 @@ alias rte="rostopic echo"
 
 alias nodegraph="rosrun rqt_graph rqt_graph"
 alias tftree="rosrun rqt_tf_tree rqt_tf_tree"
+alias sws="source ./devel/setup.zsh"
 
 #################################functions##############################
 
@@ -92,7 +92,15 @@ function mdcd(){mkdir $@ && cd $@}
 #### roscd and print dir
 function rcd()
 {
-    roscd $@ && echo -n '=>' && ${PWD##*/}
+    roscd $@ &&
+    pwd
+}
+
+#### roscd packages' src folder and print dir
+function rcdsrc()
+{
+    roscd $@ && cd src &&
+    pwd
 }
 
 ######################zsh concerned########################
@@ -114,6 +122,10 @@ function custombackup()
     cp ~/.zshrc_custom.zsh ~/.zshrc_custom.zsh.backup
     echo $backuptime >> ~/.zshrc_custom.zsh.backup
 }
+
+######################catkin_make##########################
+function ckmwp(){catkin_make -DCATKIN_WHITELIST_PACKAGES="$@"}
+function ckmbp(){catkin_make -DCATKIN_BLACKLIST_PACKAGES="$@"}
 
 ######################ROS functions########################
 #### get ros source command form a path. eg: getsourcecmd or getsourcecmd wsname
@@ -239,9 +251,9 @@ function zshtogit()
 function gitpush()
 {
     if [ -z $@ ]; then
-        git add . && git commit -a -m "modify file" && git push -u origin master
+        git add . && git commit -a -m "modify file" && git push origin master
     else
-        git add . && git commit -a -m $@ && git push -u origin master
+        git add . && git commit -a -m $@ && git push origin master
     fi
     
 }
