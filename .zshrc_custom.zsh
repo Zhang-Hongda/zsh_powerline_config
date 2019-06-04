@@ -89,6 +89,12 @@ function lf()
 #### make a folder and cd folder
 function mdcd(){mkdir $@ && cd $@}
 
+#### make a catkin work_space and cd work_space
+function cwcd(){mkdir -pv $@/src && cd $@ && catkin_make}
+
+#### make a work_space and cd work_space
+function mwcd(){mkdir -pv $@/src $@/build $@/scripts $@/data $@/include && cd $@ && touch CMakeLists.txt}
+
 #### roscd and print dir
 function rcd()
 {
