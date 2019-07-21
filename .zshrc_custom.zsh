@@ -252,14 +252,6 @@ function rosautosource()
 }
 
 ######################git functions########################
-#### save zshrc and theme files to git
-function zshtogit()
-{
-    cp ~/.zshrc $zsh_git_path/.zshrc &&
-    cp $theme_path/powerline-custom.zsh-theme $zsh_git_path/powerline-custom.zsh-theme &&
-    cp ~/.zshrc_custom.zsh $zsh_git_path/.zshrc_custom.zsh &&
-    echo "file backup to $zsh_git_path"
-}
 
 #### simpliy git push procedures
 function gitpush()
@@ -270,6 +262,16 @@ function gitpush()
         git add . && git commit -a -m $@ && git push origin master
     fi
     
+}
+
+#### save zshrc and theme files to git
+function zshtogit()
+{
+    cp ~/.zshrc $zsh_git_path/.zshrc &&
+    cp $theme_path/powerline-custom.zsh-theme $zsh_git_path/powerline-custom.zsh-theme &&
+    cp ~/.zshrc_custom.zsh $zsh_git_path/.zshrc_custom.zsh &&
+    echo "file backup to $zsh_git_path" &&
+    cd $zsh_git_path && gitpush "modify"
 }
 
 #### modify git folder config file
