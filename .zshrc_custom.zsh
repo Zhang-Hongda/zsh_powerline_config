@@ -271,7 +271,7 @@ function zshtogit()
     cp $theme_path/powerline-custom.zsh-theme $zsh_git_path/powerline-custom.zsh-theme &&
     cp ~/.zshrc_custom.zsh $zsh_git_path/.zshrc_custom.zsh &&
     echo "file backup to $zsh_git_path" &&
-    cd $zsh_git_path && gitpush "modify"
+    cd $zsh_git_path && echo "uploading files to git repository" && gitpush "modify"
 }
 
 #### modify git folder config file
