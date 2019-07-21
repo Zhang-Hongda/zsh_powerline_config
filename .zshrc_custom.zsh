@@ -267,7 +267,7 @@ function gitpush()
 #### save zshrc and theme files to git
 function zshtogit()
 {
-    echo $pwd
+    echo $PWD
     cp ~/.zshrc $zsh_git_path/.zshrc &&
     cp $theme_path/powerline-custom.zsh-theme $zsh_git_path/powerline-custom.zsh-theme &&
     cp ~/.zshrc_custom.zsh $zsh_git_path/.zshrc_custom.zsh &&
