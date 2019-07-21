@@ -52,7 +52,9 @@ alias ckmr="catkin_make -DCMAKE_BUILD_TYPE=Release"
 alias reckm="rm -r ./devel ./build && command catkin_make"
 alias reckmd="rm -r ./devel ./build && command catkin_make -DCMAKE_BUILD_TYPE=Debug"
 alias reckmr="rm -r ./devel ./build && command catkin_make -DCMAKE_BUILD_TYPE=Release"
-
+######################catkin_make##########################
+function ckmwp(){catkin_make -DCATKIN_WHITELIST_PACKAGES="$@"}
+function ckmbp(){catkin_make -DCATKIN_BLACKLIST_PACKAGES="$@"}
 
 #### ros
 alias rp="rospack"
@@ -67,7 +69,16 @@ alias nodegraph="rosrun rqt_graph rqt_graph"
 alias tftree="rosrun rqt_tf_tree rqt_tf_tree"
 alias sws="source ./devel/setup.zsh"
 
-#################################functions##############################
+### github
+alias gitc="git clone"
+
+### keyboard
+alias keyboard_on="xinput set-prop 'AT Translated Set 2 keyboard' 'Device Enabled' 1"
+alias keyboard_off="xinput set-prop 'AT Translated Set 2 keyboard' 'Device Enabled' 0"
+
+### touchpad
+alias touchpad_on="xinput set-prop 'DELL0782:00 06CB:7E92 Touchpad' 'Device Enabled' 1"
+alias touchpad_off="xinput set-prop 'DELL0782:00 06CB:7E92 Touchpad' 'Device Enabled' 0"
 
 ###################### commonly used########################
 #### list full path
@@ -129,9 +140,6 @@ function custombackup()
     echo $backuptime >> ~/.zshrc_custom.zsh.backup
 }
 
-######################catkin_make##########################
-function ckmwp(){catkin_make -DCATKIN_WHITELIST_PACKAGES="$@"}
-function ckmbp(){catkin_make -DCATKIN_BLACKLIST_PACKAGES="$@"}
 
 ######################ROS functions########################
 #### get ros source command form a path. eg: getsourcecmd or getsourcecmd wsname
@@ -278,5 +286,6 @@ themebackup
 custombackup
 #### activate ros workspaces
 rosautosource
-
+#############################Python path#############################
+# export PYTHONPATH=/usr/lib/python3/dist-packages
 
