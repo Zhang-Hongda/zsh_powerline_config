@@ -79,6 +79,16 @@ alias keyboard_off="xinput set-prop 'AT Translated Set 2 keyboard' 'Device Enabl
 ### touchpad
 alias touchpad_on="xinput set-prop 'DELL0782:00 06CB:7E92 Touchpad' 'Device Enabled' 1 && notify-send touchpad on"
 alias touchpad_off="xinput set-prop 'DELL0782:00 06CB:7E92 Touchpad' 'Device Enabled' 0 && notify-send touchpad off"
+alias touchpad_status="xinput list-props 'DELL0782:00 06CB:7E92 Touchpad' | grep 'Device Enabled' | sed 's/Device Enabled (169)://' | grep -E -o "[0-9]""
+function touchpad_switch(){
+    t_status=$(touchpad_status);
+    if [ $t_status == 1 ]
+    then
+        touchpad_off
+    else
+        touchpad_on
+    fi
+}
 
 ###################### commonly used########################
 #### list full path
