@@ -13,7 +13,7 @@ A backup of configuration file of __zsh__ and __zsh theme__ and some useful link
 * Ubuntu 16.04 LTS 
 #### zsh installation
 * [ renshuki/ubuntu_agnoster_install.md](https://gist.github.com/renshuki/3cf3de6e7f00fa7e744a)
-####zsh plugins
+#### zsh plugins
 * [unixorn/awesome-zsh-plugins](https://github.com/unixorn/awesome-zsh-plugins)
 #### Powerline theme configuration
 * [jeremyFreeAgent/oh-my-zsh-powerline-theme](https://github.com/jeremyFreeAgent/oh-my-zsh-powerline-theme)
