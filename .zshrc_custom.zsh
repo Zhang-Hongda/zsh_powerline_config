@@ -91,6 +91,16 @@ function touchpad_switch(){
 }
 
 ###################### commonly used########################
+#### open folder
+function opendir()
+{
+    if [ -z $@ ]; then
+        nautilus $(pwd)
+    else
+        nautilus $@
+    fi
+}
+
 #### list full path
 function lfp()
 {
